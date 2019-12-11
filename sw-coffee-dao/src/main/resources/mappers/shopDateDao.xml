@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.ShopDateDao">
+
+    <resultMap id="getShopDate" type="com.nf.entity.ShopDate">
+        <id property="shopDateNo" column="sw_coffee_date_no"/>
+        <result property="startTime" column="sw_coffee_date_start"/>
+        <result property="endTime" column="sw_coffee_date_end"/>
+        <result property="wed" column="sw_coffee_date_wed"/>
+        <result property="shopNo" column="sw_coffee_shop_no"/>
+    </resultMap>
+    <select id="getByShopId" resultMap="getShopDate">
+        select sw_coffee_date_no, sw_coffee_date_start,
+             sw_coffee_date_end, sw_coffee_date_wed,
+             sw_coffee_shop_no
+        from sw_coffee_date
+        where sw_coffee_shop_no = #{shopId}
+        order by sw_coffee_date_wed
+    </select>
+
+</mapper>

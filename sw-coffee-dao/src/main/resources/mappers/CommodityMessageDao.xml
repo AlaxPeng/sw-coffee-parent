@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.CommodityMessageDao">
+
+    <resultMap id="CommodityMessageResultMap" type="com.nf.entity.CommodityMessage">
+        <id property="commodityMessageNo" column="sw_coffee_commodity_message_no"/>
+        <result property="commodityTypeNo" column="sw_coffee_commodity_type_self_no"/>
+        <result property="commodityMessageImg" column="sw_coffee_commodity_message_img_load"/>
+        <result property="commodityMessageMoney" column="sw_coffee_commodity_message_money"/>
+        <result property="commodityMessageName" column="sw_coffee_commodity_message_name"/>
+        <result property="commodityMessageNumber" column="sw_coffee_commodity_message_number"/>
+        <result property="commodityMessageSynopsis" column="sw_coffee_commodity_message_synopsis"/>
+        <result property="commodityStartTime" column="sw_coffee_commodity_message_start_time"/>
+    </resultMap>
+
+    <select id="selectByTime" resultMap="CommodityMessageResultMap">
+        select sw_coffee_commodity_message_no, sw_coffee_commodity_message_name,
+         sw_coffee_commodity_message_start_time, sw_coffee_commodity_message_img_load,
+          sw_coffee_commodity_message_synopsis, sw_coffee_commodity_message_money,
+           sw_coffee_commodity_message_number, sw_coffee_commodity_type_self_no
+            from sw_coffee_commodity_message
+             order by sw_coffee_commodity_message_start_time LIMIT 0,8
+    </select>
+
+    <select id="selectByTypeId" resultMap="CommodityMessageResultMap">
+        select sw_coffee_commodity_message_no, sw_coffee_commodity_message_name,
+         sw_coffee_commodity_message_start_time, sw_coffee_commodity_message_img_load,
+          sw_coffee_commodity_message_synopsis, sw_coffee_commodity_message_money,
+           sw_coffee_commodity_message_number, sw_coffee_commodity_type_self_no
+            from sw_coffee_commodity_message where sw_coffee_commodity_type_self_no = #{typeId}
+             order by sw_coffee_commodity_message_number LIMIT 0,5
+    </select>
+
+    <select id="selectById" resultMap="CommodityMessageResultMap">
+         select sw_coffee_commodity_message_no, sw_coffee_commodity_message_name,
+         sw_coffee_commodity_message_start_time, sw_coffee_commodity_message_img_load,
+          sw_coffee_commodity_message_synopsis, sw_coffee_commodity_message_money,
+           sw_coffee_commodity_message_number, sw_coffee_commodity_type_self_no
+            from sw_coffee_commodity_message where sw_coffee_commodity_message_no = #{messageNo}
+    </select>
+
+    <update id="updateNumber">
+        update sw_coffee_commodity_message
+        set sw_coffee_commodity_message_number=sw_coffee_commodity_message_number+1
+        where sw_coffee_commodity_message_no = #{messageNo}
+    </update>
+    
+</mapper>
