@@ -33,6 +33,25 @@
              order by sw_coffee_commodity_message_number LIMIT 0,5
     </select>
 
+    <select id="selectByNumber" resultMap="CommodityMessageResultMap">
+        select sw_coffee_commodity_message_no, sw_coffee_commodity_message_name,
+         sw_coffee_commodity_message_start_time, sw_coffee_commodity_message_img_load,
+          sw_coffee_commodity_message_synopsis, sw_coffee_commodity_message_money,
+           sw_coffee_commodity_message_number, sw_coffee_commodity_type_self_no
+            from sw_coffee_commodity_message
+             order by sw_coffee_commodity_message_number LIMIT 0,4
+    </select>
+
+    <select id="selectByName" resultMap="CommodityMessageResultMap">
+        <bind name="message_name" value="messageName+'%'"/>
+        select sw_coffee_commodity_message_no, sw_coffee_commodity_message_name,
+         sw_coffee_commodity_message_start_time, sw_coffee_commodity_message_img_load,
+          sw_coffee_commodity_message_synopsis, sw_coffee_commodity_message_money,
+           sw_coffee_commodity_message_number, sw_coffee_commodity_type_self_no
+            from sw_coffee_commodity_message
+             where sw_coffee_commodity_message_name like #{message_name}
+    </select>
+
     <select id="selectById" resultMap="CommodityMessageResultMap">
          select sw_coffee_commodity_message_no, sw_coffee_commodity_message_name,
          sw_coffee_commodity_message_start_time, sw_coffee_commodity_message_img_load,

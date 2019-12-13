@@ -22,13 +22,8 @@ public class ShopController {
     @Autowired
     private ShopService shopService;
 
-    @RequestMapping("")
+    @RequestMapping({"","/"})
     public String index(){
-        return "shop/shop";
-    }
-
-    @RequestMapping("/")
-    public String indexChild(){
         return "shop/shop";
     }
 

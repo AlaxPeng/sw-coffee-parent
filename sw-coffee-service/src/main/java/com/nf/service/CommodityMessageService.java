@@ -17,7 +17,7 @@ public interface CommodityMessageService {
      */
     List<CommodityMessageVo> selectByTime();
     /**
-     * 根据类型查询
+     * 根据类型查询查询点击量最多的前4条
      * @param typeId
      * @return
      */
@@ -35,4 +35,17 @@ public interface CommodityMessageService {
      * @return
      */
     CommodityMessageVo selectByMessageNo(Integer messageNo);
+
+    /**
+     * 根据点击量查询前5
+     * @return
+     */
+    List<CommodityMessage> selectByNumber();
+
+    /**
+     * 根据名字右模糊查询
+     * @param messageName
+     * @return
+     */
+    List<CommodityMessage> selectByName(@Param("messageName") String messageName);
 }

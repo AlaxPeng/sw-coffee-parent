@@ -55,4 +55,14 @@ public class CommodityMessageServiceImpl implements CommodityMessageService {
         CommodityType commodityType = commodityTypeDao.selectById(commodityMessage.getCommodityTypeNo());
         return new CommodityMessageVo(commodityMessage,commodityType);
     }
+
+    @Override
+    public List<CommodityMessage> selectByNumber() {
+        return commodityMessageDao.selectByNumber();
+    }
+
+    @Override
+    public List<CommodityMessage> selectByName(String messageName) {
+        return commodityMessageDao.selectByName(messageName);
+    }
 }

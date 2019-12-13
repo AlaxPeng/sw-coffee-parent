@@ -39,4 +39,17 @@ public interface CommodityMessageDao {
      */
     CommodityMessage selectById(@Param("messageNo") Integer messageNo);
 
+    /**
+     * 根据点击量查询前5
+     * @return
+     */
+    List<CommodityMessage> selectByNumber();
+
+    /**
+     * 根据名字右模糊查询
+     * @param messageName
+     * @return
+     */
+    List<CommodityMessage> selectByName(@Param("messageName") String messageName);
+
 }

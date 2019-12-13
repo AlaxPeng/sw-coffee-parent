@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-  /* TRIGGERS (FOR DIALOGS AND OVERLAYS) */
   var triggers = document.querySelectorAll('.trigger');
 
   for (var i = 0; i < triggers.length; i++) {
@@ -10,10 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
       return false;
     });
   }
-
-  /* SNACKBAR */
-
-  // Closing elements
   var snackbars = document.querySelectorAll('.snackbar');
 
   for (var i = 0; i < snackbars.length; i++) {
@@ -24,9 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  /* DIALOGS */
-
-  // Closing elements
   var dialogs = document.querySelectorAll('.dialog');
 
   for (var i = 0; i < dialogs.length; i++) {
@@ -37,10 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-
-  /* OVERLAYS */
-
-  // Closing elements
   var overlays = document.querySelectorAll('.overlay');
 
   for (var i = 0; i < overlays.length; i++) {
@@ -52,10 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-
-  /* DIALOGS & OVERLAYS */
-
-  // Close overlays & dialogs with escape key
   document.onkeydown = function(evt) {
     evt = evt || window.event;
     if (evt.keyCode == 27) {
@@ -75,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  /* FASTCLICK */
   if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {
       FastClick.attach(document.body);
@@ -101,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var body = this.querySelector('.body');
       var container = this.querySelector('.body .container');
 
-      // if (header.contains(event.target)) {
         if (this.classList.contains('collapsed')) {
           body.style.maxHeight = container.offsetHeight;
         } else {
@@ -109,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         this.classList.toggle('collapsed');
         this.classList.toggle('expanded');
-      // }
     });
   }
 
@@ -145,8 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
       return result;
     };
   };
-  // Prevents the mouse from scrolling, add arrow to scroll list
-
   // extension:
   $.fn.scrollEnd = function(callback, timeout) {
     $(this).scroll(function(){
@@ -157,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
       $this.data('scrollTimeout', setTimeout(callback,timeout));
     });
   };
-// how to call it (with a 1000ms timeout):
   window.addArrowToScroll = function addArrowToScroll(el){
     var scroll = $(el)[0];
     if (!scroll) return;
@@ -198,7 +176,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Add an event to the scroll of a static file
   addArrowToScroll('.scroll');
 
-  // see: https://github.com/starbucks-china/starbucks-website/issues/703
   if (window.location.pathname.indexOf('/about/news/') !== -1) {
     var $window = $(window)
     var $wrapper = navigator.userAgent.match(/Android/i) ? $('#app-view-wrapper') : $window
@@ -228,7 +205,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
- /* prevent child event trigger parent event */
  window.stopEvtPropagation = function stopEvtPropagation(el, evt) {
    // the default evt is 'click'
    evt = evt || 'click'
@@ -250,20 +226,16 @@ $(document).ready(function() {
     $('.subcategories').animate({scrollLeft: ($('.subcategories').find('.active').offset().left - 16)},0);
   }
 
-  // Change tmall title's hypen to non-break hypen
   $('.page-front .tmall .title-1 strong').each(function(){
     $(this).html($(this).html().replace('-','&#8209;'))
   });
 
-  // Make page scroll to top when click binding msr card
   $(document).on('click','.svc .frap .button, .MsrContainer .frap .button', function(){
     document.querySelector('html').scrollTo(0,0)
   })
 
-  // Add ids for homepage slide-next button
   $('.page-front .slick-next').attr('id', 'home-navigation');
 
-   // Click search bar make parent scroll bar unscrollable
   $('#help-cta-search').on('click',function(){
     document.body.style.overflow = 'hidden';
   })
@@ -277,21 +249,46 @@ $(document).ready(function() {
     $('#menu-search-input').focus();
   })
 
-  var ua = window.navigator.userAgent
-  if (/android/i.test(ua)) {
-    if (/AlipayClient/.test(ua)) {
-      $('#download-app-page-mobile').attr('href', 'http://www.wandoujia.com/apps-com.starbucks.cn')
-    } else {
-      $('#download-app-page-mobile').attr('href', 'http://a.app.qq.com/o/simple.jsp?pkgname=com.starbucks.cn')
-    }
-  }
-
   if (!!window.MSInputMethodContext && !!document.documentMode) {
     $('body').addClass('ie11')
   }
 
   $(".item").click(function () {
     location.href = "/menu/details?commodityMessageNo="+$(this).children("input").val();
+  })
+
+  $("#menu-search-input").keydown(function () {
+    var messageName = $(this).val();
+      $.getJSON("/menu/search",{messageName:messageName},function (data) {
+        if(data.length != 0) {
+          $("#menu-search-empty").html("<div class=\"tag\">商品如下</div>");
+          var menuSearchResults = "";
+          $.each(data, function (index, event) {
+            menuSearchResults += "<li>" +
+                "<a class=\"overlay-close thumbnail\" href=\"/menu/details?commodityMessageNo=\"+event.commodityMessageNo>" +
+                "<div class=\"preview circle\" style=\"background-image: url(/static/img" + event.commodityMessageImg + ")\"></div>" +
+                "<strong>" + event.commodityMessageName + "</strong>" +
+                "</a>" +
+                "</li>";
+          })
+          $("#menu-search-results").html(menuSearchResults);
+        }
+        else {
+          $.getJSON("/menu/recommend",{},function (data) {
+            $("#menu-search-empty").html("<div class=\"tag\">没有找您要的商品,大家都在搜</div>");
+            var menuSearchResults = "";
+            $.each(data,function (index,event) {
+              menuSearchResults+="<li>" +
+                  "<a class=\"overlay-close thumbnail\" href=\"/menu/details?commodityMessageNo=\"+event.commodityMessageNo>" +
+                  "<div class=\"preview circle\" style=\"background-image: url(/static/img"+event.commodityMessageImg+")\"></div>" +
+                  "<strong>"+event.commodityMessageName+"</strong>" +
+                  "</a>" +
+                  "</li>";
+            })
+            $("#menu-search-results").html(menuSearchResults);
+          })
+        }
+      })
   })
 
 })

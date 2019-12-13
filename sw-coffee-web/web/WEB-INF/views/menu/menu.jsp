@@ -69,7 +69,7 @@
             </li>
             <c:forEach var="commodityType" items="${commodityTypeList}">
                 <li>
-                    <a href='/menu/msg'+${commodityType.commodityTypeNo}>
+                    <a href='/menu/msg?commodityTypeSelfNo=${commodityType.commodityTypeNo}'>
                         ${commodityType.commodityTypeName}
                     </a>
                 </li>
@@ -100,19 +100,30 @@
     </section>
     <div class='overlay' id='menu-search-overlay'>
     <header class='header'>
-        <button class='icon close'>Close</button>
+    <button class='icon close'>Close</button>
     </header>
     <div class='body'>
-        <div class='field search'>
-        <img src='/static/img/menu/assets/icon/icon-search.svg' class='icon'>
-        <input type='text' id='menu-search-input' placeholder='搜索菜单'>
-        </div>
-        <div id='menu-search-empty'></div>
-        <ul class='grid columns-4 padded-2' id='menu-search-results'></ul>
-        </div>
+    <div class='field search'>
+    <img src='/static/img/menu/assets/icon/icon-search.svg' class='icon'>
+    <input type='text' id='menu-search-input' placeholder='搜索菜单'>
+    </div>
+    <div id='menu-search-empty'>
+    <div class="tag">大家都在搜</div>
+    </div>
+    <ul class='grid columns-4 padded-2' id='menu-search-results'>
+    <c:forEach items="${commodityMessageList}" var="commodityMessage">
+        <li>
+        <a class="overlay-close thumbnail" href="/menu/details?commodityMessageNo=${commodityMessage.commodityMessageNo}">
+        <div class="preview circle" style="background-image: url(/static/img${commodityMessage.commodityMessageImg})"></div>
+        <strong>${commodityMessage.commodityMessageName}</strong>
+        </a>
+        </li>
+    </c:forEach>
+    </ul>
+    </div>
     </div>
     <div class='frap'>
-        <button id="featured-campaign-search" class='button primary trigger' rel='menu-search-overlay'>搜索菜单</button>
+    <button id="featured-campaign-search" class='button primary trigger' rel='menu-search-overlay'>搜索菜单</button>
     </div>
     </section>
     </div>

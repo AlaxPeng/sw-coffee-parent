@@ -1,6 +1,7 @@
 package com.nf.service;
 
 import com.nf.entity.CommodityType;
+import com.nf.vo.CommodityTypeVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -22,4 +23,13 @@ public interface CommodityTypeService {
      * @return
      */
     CommodityType selectById(@Param("commodityTypeNo") Integer id);
+
+    /**
+     * 根据外键查询
+     * @param commodityTypeSelfId
+     * @param commodityTypeId
+     * @return
+     */
+    List<CommodityTypeVo> selectBySelfId(@Param("commodityTypeSelfId") Integer commodityTypeSelfId,
+                                         @Param("commodityTypeId") Integer commodityTypeId);
 }

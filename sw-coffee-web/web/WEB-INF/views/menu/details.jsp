@@ -59,7 +59,7 @@
                     </header>
                     <div class='body'>
                         <nav class='container middle secondary'>
-                            <a href='/menu/msg?commodityTypeNo=${commodityMessageVo.commodityType.commodityTypeNo}' class='back'>
+                            <a href='/menu/msg?commodityTypeSelfNo=${commodityMessageVo.commodityType.commodityTypeSelfNo}&&commodityTypeNo=${commodityMessageVo.commodityType.commodityTypeNo}' class='back'>
                             <img src='/static/img/menu/assets/icon/icon-chevron-left.svg'>
                                 ${commodityMessageVo.commodityType.commodityTypeName}
                             </a>

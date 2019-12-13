@@ -18,9 +18,18 @@ public interface CommodityTypeDao {
 
     /**
      * 根据Id查询
-     * @param id
+     * @param commodityTypeNo
      * @return
      */
-    CommodityType selectById(@Param("commodityTypeNo") Integer id);
+    CommodityType selectById(@Param("commodityTypeNo") Integer commodityTypeNo);
+
+    /**
+     * 根据外键查询
+     * @param commodityTypeSelfId
+     * @param commodityTypeId
+     * @return
+     */
+    List<CommodityType> selectBySelfId(@Param("commodityTypeSelfId") Integer commodityTypeSelfId,
+                                       @Param("commodityTypeId") Integer commodityTypeId);
 
 }

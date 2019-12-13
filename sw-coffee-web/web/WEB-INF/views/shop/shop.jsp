@@ -61,7 +61,7 @@
 </div>
 <!-- 加载地图JSAPI脚本 -->
 <script src="http://webapi.amap.com/maps?v=1.3&key=131e8d0567e60c7789ba81b8c6204058&plugin=AMap.Walking"></script>
-<script src="/static/js/shop.js"></script>
+<script src="/static/js/shop.js"></script>,
 </body>
 </html>
 
