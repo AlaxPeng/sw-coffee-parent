@@ -29,10 +29,10 @@
                         <img src="/static/img/login/assets/images/logo.svg" class="img-circle">
                     </a>
                     <ul id="ul" class="nav nav-tabs">
-                        <li id="myAccount">
+                        <li class="active" id="myAccount">
                             <a href='/account'>我的账户</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="/shop">门店</a>
                         </li>
                         <li>

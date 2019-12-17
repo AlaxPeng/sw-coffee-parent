@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.UserDao">
+
+    <resultMap id="userDaoResult" type="com.nf.entity.User">
+        <id property="accountNumber" column="sw_coffee_user_account_number"/>
+        <result property="phone" column="sw_coffee_user_phone"/>
+        <result property="birthday" column="sw_coffee_user_birthday"/>
+        <result property="name" column="sw_coffee_user_name"/>
+        <result property="emailAddress" column="sw_coffee_user_email_address"/>
+        <result property="membershipGradeNo" column="sw_coffee_membership_grade_no"/>
+        <result property="surname" column="sw_coffee_user_surname"/>
+        <result property="starsNumber" column="sw_coffee_user_stars_number"/>
+        <result property="password" column="sw_coffee_user_password"/>
+        <result property="registrationTime" column="sw_coffee_user_registration_time"/>
+        <result property="sex" column="sw_coffee_user_sex"/>
+    </resultMap>
+
+    <select id="userCountAccountNumber" resultType="integer">
+        select COUNT(*) from sw_coffee_user where sw_coffee_user_account_number=#{accountNumber} and sw_coffee_user_state=1
+    </select>
+
+    <select id="userCountUserLogin" resultMap="userDaoResult">
+        select sw_coffee_user_account_number,
+         sw_coffee_user_email_address,
+         sw_coffee_user_phone, sw_coffee_user_password,
+          sw_coffee_user_registration_time, sw_coffee_user_surname,
+         sw_coffee_user_name, sw_coffee_user_sex,
+          sw_coffee_user_birthday, sw_coffee_user_state,
+           sw_coffee_user_stars_number
+            from sw_coffee_user
+         where sw_coffee_user_account_number=#{accountNumber}
+          and sw_coffee_user_password=#{password}
+    </select>
+
+    <select id="userGetPhoneByAccountNumber" resultType="string">
+        select sw_coffee_user_phone from sw_coffee_user
+         where sw_coffee_user_account_number = #{accountNumber}
+    </select>
+
+    <update id="updatePassword">
+        update sw_coffee_user set sw_coffee_user_password = #{password}
+         where sw_coffee_user_account_number = #{accountNumber}
+    </update>
+
+    <select id="userGetByPhone" resultType="integer">
+        select count(*) from sw_coffee_user
+         where sw_coffee_user_phone = #{phone}
+    </select>
+
+    <insert id="registerUser">
+        insert into sw_coffee_user(sw_coffee_user_account_number,sw_coffee_user_phone,sw_coffee_user_password)
+        values(#{accountNumber},#{phone},#{password})
+    </insert>
+
+</mapper>

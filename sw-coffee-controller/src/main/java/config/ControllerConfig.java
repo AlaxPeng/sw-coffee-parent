@@ -2,6 +2,7 @@ package config;
 
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.nf.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,6 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.JsonbHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -21,7 +21,7 @@ import java.util.List;
  * @author Alex
  */
 @Configuration
-@ComponentScan("com.nf.controller")
+@ComponentScan({"com.nf.controller","com.nf.interceptor"})
 @Import(config.ServiceConfig.class)
 @EnableWebMvc
 public class ControllerConfig implements WebMvcConfigurer {
@@ -54,4 +54,12 @@ public class ControllerConfig implements WebMvcConfigurer {
         fastJsonHttpMessageConverter.setFastJsonConfig(new FastJsonConfig());
         converters.add(fastJsonHttpMessageConverter);
     }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").
+                excludePathPatterns("/login/**","/login","/shop/**","/shop",
+                        "/menu/**","/menu","/static/**","/register","/register/**");
+    }
+
 }

@@ -257,7 +257,7 @@ $(document).ready(function() {
     location.href = "/menu/details?commodityMessageNo="+$(this).children("input").val();
   })
 
-  $("#menu-search-input").keydown(function () {
+  $("#menu-search-input").keyup(function () {
     var messageName = $(this).val();
       $.getJSON("/menu/search",{messageName:messageName},function (data) {
         if(data.length != 0) {
