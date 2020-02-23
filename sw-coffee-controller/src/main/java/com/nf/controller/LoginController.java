@@ -5,6 +5,7 @@ import com.nf.service.UserService;
 import com.nf.util.LoginAndRegisterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,49 +18,49 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/login")
 public class LoginController {
 
-    private String accountNumber;
+    private final String ACCOUNT_NUMBER = "accountNumber";
+    private final String USER = "user";
     private final String CODE = "code";
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping({"","/"})
+    @GetMapping({"","/"})
     public String index(){
         return "login/login";
     }
 
-    @RequestMapping("/usernameKeyup")
+    @GetMapping("/usernameKeyup")
     @ResponseBody
     public Boolean usernameKeyup(String accountNumber){
-        return userService.userCountAccountNumber(accountNumber);
+        return userService.userCountAccountNumber(accountNumber) != null;
     }
 
-    @RequestMapping("/landing")
+    @GetMapping("/landing")
     @ResponseBody
     public Boolean landing(String accountNumber, String password, HttpSession session){
-        this.accountNumber = accountNumber;
+        session.setAttribute(ACCOUNT_NUMBER,accountNumber);
         User user = userService.userCountUserLogin(accountNumber,password);
         if(user != null){
-            session.setAttribute("user",user);
+            session.setAttribute(USER,user);
+            session.removeAttribute(ACCOUNT_NUMBER);
             return true;
         }
         return false;
-
     }
 
-    @RequestMapping("/gainCode")
+    @GetMapping("/gainCode")
     @ResponseBody
     public String gainCode(String phone,HttpSession session){
-        System.out.println("accountNumber = " + accountNumber);
-        if(phone.equals(userService.userGetPhoneByAccountNumber(accountNumber))){
-            session.setAttribute("code", LoginAndRegisterUtils.sendSms(LoginAndRegisterUtils.code(),phone));
+        if(phone.equals(userService.userGetPhoneByAccountNumber((String) session.getAttribute(ACCOUNT_NUMBER)))){
+            session.setAttribute(CODE, LoginAndRegisterUtils.sendSms(LoginAndRegisterUtils.code(),phone));
             return "1";
         }else {
             return "0";
         }
     }
 
-    @RequestMapping("/modalCode")
+    @GetMapping("/modalCode")
     @ResponseBody
     public Boolean modalCode(String code,HttpSession session){
         return code.equals(session.getAttribute(CODE));
@@ -67,8 +68,8 @@ public class LoginController {
 
     @RequestMapping("/updatePassword")
     @ResponseBody
-    public Boolean updatePassword(String password){
-        return userService.updatePassword(accountNumber,password);
+    public Boolean updatePassword(String password,HttpSession session){
+        return userService.updatePassword((String) session.getAttribute(ACCOUNT_NUMBER),password);
     }
 
 }

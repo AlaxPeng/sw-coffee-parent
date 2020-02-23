@@ -5,7 +5,7 @@ import com.nf.dao.CommodityTypeDao;
 import com.nf.entity.CommodityMessage;
 import com.nf.entity.CommodityType;
 import com.nf.service.CommodityMessageService;
-import com.nf.vo.CommodityMessageVo;
+import com.nf.vo.CommodityMessageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,10 +26,10 @@ public class CommodityMessageServiceImpl implements CommodityMessageService {
 
     @Transactional(rollbackFor = RuntimeException.class)
     @Override
-    public List<CommodityMessageVo> selectByTime() {
-        List<CommodityMessageVo> list = new ArrayList();
+    public List<CommodityMessageVO> selectByTime() {
+        List<CommodityMessageVO> list = new ArrayList();
         for (CommodityMessage commodityMessage : commodityMessageDao.selectByTime()) {
-            list.add(new CommodityMessageVo(commodityMessage,
+            list.add(new CommodityMessageVO(commodityMessage,
                     commodityTypeDao.selectById(commodityMessage.getCommodityTypeNo())));
         }
         return list;
@@ -50,10 +50,10 @@ public class CommodityMessageServiceImpl implements CommodityMessageService {
 
     @Transactional(rollbackFor = RuntimeException.class)
     @Override
-    public CommodityMessageVo selectByMessageNo(Integer messageNo) {
+    public CommodityMessageVO selectByMessageNo(Integer messageNo) {
         CommodityMessage commodityMessage = commodityMessageDao.selectById(messageNo);
         CommodityType commodityType = commodityTypeDao.selectById(commodityMessage.getCommodityTypeNo());
-        return new CommodityMessageVo(commodityMessage,commodityType);
+        return new CommodityMessageVO(commodityMessage,commodityType);
     }
 
     @Override

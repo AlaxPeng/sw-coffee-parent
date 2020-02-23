@@ -5,6 +5,9 @@
     <file type="web" url="file://$PROJECT_DIR$/sw-coffee-controller" />
     <file type="web" url="file://$PROJECT_DIR$/sw-coffee-web" />
   </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="NASHORN" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>

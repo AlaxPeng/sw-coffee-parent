@@ -20,7 +20,7 @@ import java.util.Properties;
  */
 @Configuration
 @MapperScan(value = "com.nf.dao",sqlSessionFactoryRef = "sqlSessionFactory")
-@Import(DataSourceConfig.class)
+@Import({DataSourceConfig.class})
 public class DaoConfig {
     @Autowired
     private DataSource dataSource;

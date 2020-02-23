@@ -1,7 +1,7 @@
 package com.nf.service;
 
 import com.nf.entity.Shop;
-import com.nf.vo.ShopVo;
+import com.nf.vo.ShopVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,5 +28,5 @@ public interface ShopService {
      * @return
      */
     @Transactional(rollbackFor = RuntimeException.class)
-    ShopVo getByIdAndTime(@Param("shopId") Integer shopId);
+    ShopVO getByIdAndTime(@Param("shopId") Integer shopId);
 }

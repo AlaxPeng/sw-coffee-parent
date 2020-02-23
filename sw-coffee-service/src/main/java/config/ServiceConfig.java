@@ -14,7 +14,7 @@ import javax.sql.DataSource;
  * @author Alex
  */
 @Configuration
-@ComponentScan("com.nf.service")
+@ComponentScan("com.nf.service.impl")
 @EnableTransactionManagement(proxyTargetClass = true)
 @Import(DaoConfig.class)
 public class ServiceConfig {

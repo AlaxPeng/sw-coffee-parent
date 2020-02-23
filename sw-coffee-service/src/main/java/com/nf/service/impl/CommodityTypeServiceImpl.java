@@ -4,9 +4,10 @@ import com.nf.dao.CommodityMessageDao;
 import com.nf.dao.CommodityTypeDao;
 import com.nf.entity.CommodityType;
 import com.nf.service.CommodityTypeService;
-import com.nf.vo.CommodityTypeVo;
+import com.nf.vo.CommodityTypeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +34,15 @@ public class CommodityTypeServiceImpl implements CommodityTypeService {
     }
 
     @Override
-    public List<CommodityTypeVo> selectBySelfId(Integer commodityTypeSelfId,Integer commodityTypeId) {
-        List<CommodityTypeVo> commodityTypeVos = new ArrayList<>();
+    @Transactional(rollbackFor = RuntimeException.class)
+    public List<CommodityTypeVO> selectBySelfId(Integer commodityTypeSelfId, Integer commodityTypeId) {
+        List<CommodityTypeVO> commodityTypeVos = new ArrayList<>();
         List<CommodityType> commodityTypes = commodityTypeDao.selectBySelfId(commodityTypeSelfId,commodityTypeId);
         for (CommodityType commodityType : commodityTypes) {
-            commodityTypeVos.add(new CommodityTypeVo(commodityTypeDao.selectById(commodityTypeSelfId),commodityType,
+            commodityTypeVos.add(new CommodityTypeVO(commodityTypeDao.selectById(commodityTypeSelfId),commodityType,
                     commodityMessageDao.selectByTypeId(commodityType.getCommodityTypeNo())));
         }
         return commodityTypeVos;
     }
+
 }

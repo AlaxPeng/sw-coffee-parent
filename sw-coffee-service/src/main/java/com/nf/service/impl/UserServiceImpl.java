@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public Boolean userCountAccountNumber(String accountNumber) {
-        return userDao.userCountAccountNumber(accountNumber)>0;
+    public User userCountAccountNumber(String accountNumber) {
+        return userDao.userCountAccountNumber(accountNumber);
     }
 
     @Override
@@ -43,5 +43,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean registerUser(User user) {
         return userDao.registerUser(user);
+    }
+
+    @Override
+    public Boolean updateUser(User user) {
+        return userDao.updateUser(user);
     }
 }

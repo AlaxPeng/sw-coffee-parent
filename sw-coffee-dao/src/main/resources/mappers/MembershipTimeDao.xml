@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.MembershipTimeDao">
+
+    <resultMap id="MemberShipTimeResult" type="com.nf.entity.MembershipTime">
+        <id property="membershipTimeNo" column="sw_coffee_membership_time_no"/>
+        <result property="memberShipTimeEnd" column="sw_coffee_membership_time_end"/>
+        <result property="membershipTimeStart" column="sw_coffee_membership_time_start"/>
+        <result property="membershipGradeNo" column="sw_coffee_membership_grade_no"/>
+        <result property="userAccountNumber" column="sw_coffee_user_account_number"/>
+    </resultMap>
+
+    <select id="selectByAccountNumber" resultMap="MemberShipTimeResult">
+        select
+         sw_coffee_membership_time_no, sw_coffee_membership_time_start,
+         sw_coffee_membership_time_end, sw_coffee_user_account_number,
+          sw_coffee_membership_grade_no
+           from sw_coffee_membership_time
+           where sw_coffee_user_account_number = #{accountNumber}
+    </select>
+
+
+</mapper>

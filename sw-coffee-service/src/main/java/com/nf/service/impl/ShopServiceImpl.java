@@ -6,9 +6,10 @@ import com.nf.entity.Shop;
 import com.nf.entity.ShopDate;
 import com.nf.service.ShopService;
 import com.nf.util.GetDayOfWeek;
-import com.nf.vo.ShopVo;
+import com.nf.vo.ShopVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -30,10 +31,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public ShopVo getByIdAndTime(Integer shopId) {
+    @Transactional(rollbackFor = RuntimeException.class)
+    public ShopVO getByIdAndTime(Integer shopId) {
         List<ShopDate> shopDates = shopDateDao.getByShopId(shopId);
         shopDates = GetDayOfWeek.getDayOfWeek(shopDates);
-        return new ShopVo(shopDao.getById(shopId),shopDates);
+        return new ShopVO(shopDao.getById(shopId),shopDates);
     }
 
 }

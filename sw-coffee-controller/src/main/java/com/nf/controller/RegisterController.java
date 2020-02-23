@@ -1,10 +1,12 @@
 package com.nf.controller;
 
+import com.nf.vo.ResponseVO;
 import com.nf.entity.User;
 import com.nf.service.UserService;
 import com.nf.util.LoginAndRegisterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,7 +58,8 @@ public class RegisterController {
     @RequestMapping("/gainCode")
     @ResponseBody
     public Boolean gainCode(String phone,HttpSession session){
-        session.setAttribute("code", LoginAndRegisterUtils.sendSms(LoginAndRegisterUtils.code(),phone));
+        String code = LoginAndRegisterUtils.sendSms(LoginAndRegisterUtils.code(),phone);
+        session.setAttribute("code",code);
         return true;
     }
 
@@ -69,13 +72,15 @@ public class RegisterController {
         return modelAndView;
     }
 
-    @RequestMapping("insert")
-    public String insert(User user,HttpSession session){
+    @PostMapping("insert")
+    @ResponseBody
+    public ResponseVO insert(User user, HttpSession session){
         user.setPhone((String) session.getAttribute("phone"));
         if (userService.registerUser(user)){
-            return "account/account";
+            session.setAttribute("user",user);
+            return ResponseVO.newBuilder().code("200").build();
         }else {
-            return "error/500";
+            return ResponseVO.newBuilder().code("500").msg("添加数据异常").build();
         }
     }
 

@@ -2,7 +2,7 @@ package com.nf.controller;
 
 import com.nf.entity.Shop;
 import com.nf.service.ShopService;
-import com.nf.vo.ShopVo;
+import com.nf.vo.ShopVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +36,8 @@ public class ShopController {
 
     @RequestMapping("/msg")
     @ResponseBody
-    public ShopVo msg(HttpServletRequest request){
-        ShopVo shopVo = shopService.getByIdAndTime(Integer.parseInt(request.getParameter("shopId")));
+    public ShopVO msg(HttpServletRequest request){
+        ShopVO shopVo = shopService.getByIdAndTime(Integer.parseInt(request.getParameter("shopId")));
         request.getSession().setAttribute("shop",shopVo.getShop());
         return shopVo;
     }

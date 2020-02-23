@@ -9,11 +9,11 @@ import org.apache.ibatis.annotations.Param;
 public interface UserDao {
 
     /**
-     * 根据账户查询有多少个
+     * 根据账户查询用户
      * @param accountNumber
      * @return
      */
-    Integer userCountAccountNumber(@Param("accountNumber") String accountNumber);
+    User userCountAccountNumber(@Param("accountNumber") String accountNumber);
 
     /**
      * 根据账户查询有多少个
@@ -51,4 +51,11 @@ public interface UserDao {
      * @return
      */
     Boolean registerUser(User user);
+
+    /**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
+    Boolean updateUser(User user);
 }

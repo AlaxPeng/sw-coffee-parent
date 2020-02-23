@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.MembershipGiftsDao">
+
+    <resultMap id="MemberShipGiftsResult" type="com.nf.entity.MembershipGifts">
+        <id property="giftsNo" column="sw_coffee_membership_gifts_no"/>
+        <result property="giftsName" column="sw_coffee_membership_gifts_name"/>
+        <result property="giftsBasicRules" column="sw_coffee_membership_gifts_basic_rules"/>
+        <result property="commodityTypeNo" column="sw_coffee_commodity_type_no"/>
+        <result property="giftsDepreciate" column="sw_coffee_membership_gifts_depreciate"/>
+        <result property="giftsUsableImg" column="sw_coffee_membership_gifts_usable_img"/>
+        <result property="gradeNo" column="sw_coffee_membership_grade_no"/>
+    </resultMap>
+
+    <select id="select" resultMap="MemberShipGiftsResult">
+        select
+        sw_coffee_membership_gifts_no, sw_coffee_membership_gifts_name,
+        sw_coffee_membership_gifts_basic_rules,
+        sw_coffee_commodity_type_no, sw_coffee_membership_gifts_depreciate,
+        sw_coffee_membership_gifts_usable_img, sw_coffee_membership_grade_no
+        from sw_coffee_membership_gifts order by sw_coffee_membership_grade_no asc
+    </select>
+
+</mapper>

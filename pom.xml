@@ -43,8 +43,9 @@
         <hibernate.validator.version>6.1.0.Final</hibernate.validator.version>
         <commons.fileupload.version>1.4</commons.fileupload.version>
         <lombok.version>1.18.10</lombok.version>
-        <fastjson.version>1.2.60</fastjson.version>
         <aliyun.version>4.1.0</aliyun.version>
+        <jackson.version>2.9.2</jackson.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencyManagement>
@@ -103,12 +104,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
             </dependency>
 
             <dependency>
@@ -188,6 +183,23 @@
                 <version>${aliyun.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <!-- Swagger UI提供了Web页面以方便开发人员查看API文档-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

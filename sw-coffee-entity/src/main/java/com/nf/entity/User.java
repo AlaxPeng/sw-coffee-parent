@@ -1,5 +1,6 @@
 package com.nf.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,6 @@ public class User {
     private Boolean sex;
     private Date birthday;
     private BigDecimal starsNumber;
-    private Integer membershipGradeNo;
+    private String portrait;
+    
 }

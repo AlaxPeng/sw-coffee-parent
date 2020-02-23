@@ -1,7 +1,7 @@
 package com.nf.service;
 
 import com.nf.entity.CommodityMessage;
-import com.nf.vo.CommodityMessageVo;
+import com.nf.vo.CommodityMessageVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface CommodityMessageService {
      * 查询最新产品
      * @return
      */
-    List<CommodityMessageVo> selectByTime();
+    List<CommodityMessageVO> selectByTime();
     /**
      * 根据类型查询查询点击量最多的前4条
      * @param typeId
@@ -34,7 +34,7 @@ public interface CommodityMessageService {
      * @param messageNo
      * @return
      */
-    CommodityMessageVo selectByMessageNo(Integer messageNo);
+    CommodityMessageVO selectByMessageNo(Integer messageNo);
 
     /**
      * 根据点击量查询前5

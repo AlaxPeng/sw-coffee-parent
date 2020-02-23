@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.ShopDao">
+
+    <resultMap id="shopSelectMap" type="com.nf.entity.Shop">
+        <id property="shopNo" column="sw_coffee_shop_no"/>
+        <result property="shopName" column="sw_coffee_shop_name"/>
+        <result property="startTime" column="sw_coffee_shop_start_time"/>
+        <result property="province" column="sw_coffee_shop_province"/>
+        <result property="city" column="sw_coffee_shop_city"/>
+        <result property="zipCode" column="sw_coffee_shop_zip_code"/>
+        <result property="detailedAddress" column="sw_coffee_shop_detailed_address"/>
+        <result property="phone" column="sw_coffee_shop_phone"/>
+        <result property="coordinateX" column="sw_coffee_shop_coordinate_x"/>
+        <result property="coordinateY" column="sw_coffee_shop_coordinate_y"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="shopSelectMap">
+        select sw_coffee_shop_no,
+        sw_coffee_shop_name, sw_coffee_shop_start_time,sw_coffee_shop_province, sw_coffee_shop_city,
+        sw_coffee_shop_zip_code,sw_coffee_shop_detailed_address, sw_coffee_shop_phone,
+        sw_coffee_shop_coordinate_x, sw_coffee_shop_coordinate_y
+        from sw_coffee_shop where sw_coffee_shop_state = 1
+        and sw_coffee_shop_coordinate_x &lt; #{xMax}
+        and sw_coffee_shop_coordinate_x > #{xMin}
+        and sw_coffee_shop_coordinate_y &lt; #{yMax}
+        and sw_coffee_shop_coordinate_y > #{yMin}
+    </select>
+
+    <select id="getById" resultMap="shopSelectMap">
+        select sw_coffee_shop_no, sw_coffee_shop_name,
+               sw_coffee_shop_start_time, sw_coffee_shop_province,
+               sw_coffee_shop_city, sw_coffee_shop_zip_code,
+               sw_coffee_shop_detailed_address, sw_coffee_shop_phone,
+               sw_coffee_shop_state, sw_coffee_shop_coordinate_x,
+               sw_coffee_shop_coordinate_y
+        from sw_coffee_shop
+        where sw_coffee_shop_no = #{shopId}
+    </select>
+</mapper>

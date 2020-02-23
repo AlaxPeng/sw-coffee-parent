@@ -13,7 +13,7 @@ public interface UserService {
      * @param accountNumber
      * @return
      */
-    Boolean userCountAccountNumber(@Param("accountNumber") String accountNumber);
+    User userCountAccountNumber(@Param("accountNumber") String accountNumber);
 
     /**
      * 根据账户查询有多少个
@@ -51,4 +51,13 @@ public interface UserService {
      * @return
      */
     Boolean registerUser(User user);
+
+    /**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
+    Boolean updateUser(User user);
+
+
 }

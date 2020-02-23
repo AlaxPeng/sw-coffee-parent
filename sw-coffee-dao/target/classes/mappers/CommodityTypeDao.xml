@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.CommodityTypeDao">
+
+    <resultMap id="CommodityTypeResultMap" type="com.nf.entity.CommodityType">
+        <id property="commodityTypeNo" column="sw_coffee_commodity_type_no"/>
+        <result property="commodityTypeName" column="sw_coffee_commodity_type_name"/>
+        <result property="commodityTypeSynopsis" column="sw_coffee_commodity_type_synopsis"/>
+        <result property="commodityTypeStair" column="sw_coffee_commodity_type_stair"/>
+        <result property="commodityTypeSelfNo" column="sw_coffee_commodity_type_self_no"/>
+    </resultMap>
+
+
+    <select id="selectByStair" resultMap="CommodityTypeResultMap">
+        select sw_coffee_commodity_type_no, sw_coffee_commodity_type_name,
+         sw_coffee_commodity_type_synopsis, sw_coffee_commodity_type_stair,
+          sw_coffee_commodity_type_self_no from sw_coffee_commodity_type
+         where sw_coffee_commodity_type_stair = 1
+    </select>
+
+    <select id="selectById" resultMap="CommodityTypeResultMap">
+        select sw_coffee_commodity_type_no, sw_coffee_commodity_type_name,
+         sw_coffee_commodity_type_synopsis, sw_coffee_commodity_type_stair,
+          sw_coffee_commodity_type_self_no from sw_coffee_commodity_type
+        where sw_coffee_commodity_type_no = #{commodityTypeNo}
+    </select>
+    <select id="selectBySelfId" resultMap="CommodityTypeResultMap">
+        select sw_coffee_commodity_type_no, sw_coffee_commodity_type_name,
+         sw_coffee_commodity_type_synopsis, sw_coffee_commodity_type_stair,
+          sw_coffee_commodity_type_self_no from sw_coffee_commodity_type
+        where sw_coffee_commodity_type_self_no = #{commodityTypeSelfId}
+        <choose>
+            <when test="commodityTypeId != null">
+                and sw_coffee_commodity_type_no = #{commodityTypeId}
+            </when>
+        </choose>
+    </select>
+
+</mapper>

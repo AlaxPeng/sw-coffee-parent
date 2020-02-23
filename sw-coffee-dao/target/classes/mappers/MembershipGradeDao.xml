@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.MembershipGradeDao">
+
+    <resultMap id="MemberShipResult" type="com.nf.entity.MembershipGrade">
+        <id property="gradeNo" column="sw_coffee_membership_grade_no"/>
+        <result property="gradeName" column="sw_coffee_membership_grade_name"/>
+        <result property="gradeStarNumber" column="sw_coffee_membership_grade_star_number"/>
+    </resultMap>
+
+    <select id="select" resultMap="MemberShipResult">
+        select sw_coffee_membership_grade_no,sw_coffee_membership_grade_name,
+        sw_coffee_membership_grade_star_number
+         from sw_coffee_membership_grade
+
+    </select>
+
+    <select id="selectById" resultMap="MemberShipResult">
+        select sw_coffee_membership_grade_no, sw_coffee_membership_grade_name,
+         sw_coffee_membership_grade_star_number
+         from sw_coffee_membership_grade where sw_coffee_membership_grade_no = #{gradeNo}
+    </select>
+
+    <select id="selectStarMax" resultType="integer">
+        select MAX(sw_coffee_membership_grade_star_number) from sw_coffee_membership_grade
+    </select>
+
+
+</mapper>
