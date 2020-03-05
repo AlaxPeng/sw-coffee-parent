@@ -44,7 +44,7 @@
         <commons.fileupload.version>1.4</commons.fileupload.version>
         <lombok.version>1.18.10</lombok.version>
         <aliyun.version>4.1.0</aliyun.version>
-        <jackson.version>2.9.2</jackson.version>
+        <jackson.version>2.9.10.3</jackson.version>
         <swagger.version>2.9.2</swagger.version>
     </properties>
 
