@@ -18,7 +18,7 @@ public class LoginAndRegisterUtils {
 
         DefaultProfile profile =
                 DefaultProfile.getProfile
-                        ("default", "LTAIpyZABf0JWDJP", "WNlilgdZN01VzRMDx1SkaaSezCIa2I");
+                        ("default", "******", "*************");
         IAcsClient client = new DefaultAcsClient(profile);
 
         CommonRequest request = new CommonRequest();
